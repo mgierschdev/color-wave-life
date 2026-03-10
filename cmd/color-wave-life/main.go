@@ -25,7 +25,7 @@ func main() {
 	exportGIF := flag.Bool("export-gif", false, "render a deterministic gif instead of opening the desktop window")
 	serve := flag.Bool("serve", false, "open a browser preview with built-in recording controls")
 	openBrowser := flag.Bool("open-browser", true, "open the browser automatically in serve mode")
-	pattern := flag.String("pattern", "glidergun", "starting pattern: glidergun, rpentomino, acorn, or random")
+	pattern := flag.String("pattern", "mixed", "starting pattern: mixed, spacefiller, glidergun, switchengine, pulsar, rpentomino, acorn, diehard, lwss, glider, or random")
 	density := flag.Float64("density", life.DefaultDensity, "starting density of alive cells from 0 to 1")
 	simulationFPS := flag.Float64("simulation-fps", 12, "simulation updates per second")
 	renderFPS := flag.Float64("render-fps", 20, "frame rate used by gif capture")

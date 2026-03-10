@@ -2,7 +2,7 @@
 
 ![Color Wave Life](assets/game-of-life-wave.gif)
 
-`color-wave-life` is a Go implementation of Conway's Game of Life with a traveling color field layered over each living cell. The browser preview now includes a `spacefiller` pattern for sustained expansion instead of quick stabilization.
+`color-wave-life` is a Go implementation of Conway's Game of Life with a traveling color field layered over each living cell. The browser preview and export flow now support a `mixed` seeding mode that populates the board with multiple starter colonies so the animation stays visually active.
 
 ## Features
 
@@ -12,7 +12,8 @@
 - Smooth color-wave rendering driven by time and cell position.
 - GIF export mode for generating README-ready captures.
 - Toroidal grid wrapping so patterns flow across edges.
-- Default `spacefiller` pattern for sustained expansion, plus `glidergun`, `switchengine`, `pulsar`, `rpentomino`, `acorn`, `diehard`, `lwss`, and `glider`.
+- `mixed` multi-starter mode to populate the board from the beginning.
+- `spacefiller`, `glidergun`, `switchengine`, `pulsar`, `rpentomino`, `acorn`, `diehard`, `lwss`, and `glider` single-pattern modes.
 
 ## Run locally
 
@@ -31,7 +32,7 @@ go run -tags ebitengine ./cmd/color-wave-life \
   --cell-size 7 \
   --speed 0.05 \
   --wavelength 12 \
-  --pattern glidergun
+  --pattern mixed
 ```
 
 ## Controls
@@ -46,7 +47,7 @@ go run -tags ebitengine ./cmd/color-wave-life \
 ```bash
 go run ./cmd/color-wave-life \
   --export-gif \
-  --pattern glidergun \
+  --pattern mixed \
   --width 120 \
   --height 80 \
   --cell-size 6 \
@@ -65,7 +66,7 @@ go run ./cmd/color-wave-life --serve
 The browser preview includes:
 
 - live animation from the very first cells
-- pattern switching between `spacefiller`, `glidergun`, `switchengine`, `pulsar`, `rpentomino`, `acorn`, `diehard`, `lwss`, and `glider`
+- pattern switching between `mixed`, `spacefiller`, `glidergun`, `switchengine`, `pulsar`, `rpentomino`, `acorn`, `diehard`, `lwss`, and `glider`
 - direct `Gen/s` numeric input with no fixed upper cap
 - `Pause` and `Reset` controls
 - `Record 12s` to download a WebM capture directly from the canvas
