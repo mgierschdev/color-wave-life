@@ -1,0 +1,104 @@
+:root {
+  --bg: #05070d;
+  --panel: rgba(13, 18, 32, 0.84);
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #eef4ff;
+  --muted: #96a7c4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(29, 105, 124, 0.35), transparent 36%),
+    radial-gradient(circle at bottom right, rgba(210, 83, 63, 0.22), transparent 28%),
+    linear-gradient(180deg, #09111e, var(--bg));
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.shell {
+  width: min(1120px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 28px 0 40px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+
+.eyebrow, .lede, .hud {
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+select {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.stage {
+  background: rgba(5, 8, 16, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  background: #080a12;
+}
+
+.hud {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}

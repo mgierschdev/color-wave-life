@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Color Wave Life</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Browser Preview</p>
+          <h1>Color Wave Life</h1>
+          <p class="lede">Switch between slow-bloom seeds and a glider gun that keeps injecting new motion into the field.</p>
+        </div>
+        <div class="controls">
+          <label class="picker">
+            <span>Pattern</span>
+            <select id="pattern">
+              <option value="glidergun" selected>Glider Gun</option>
+              <option value="switchengine">Switch Engine</option>
+              <option value="pulsar">Pulsar</option>
+              <option value="rpentomino">R-pentomino</option>
+              <option value="acorn">Acorn</option>
+              <option value="diehard">Diehard</option>
+              <option value="lwss">LWSS</option>
+              <option value="glider">Glider</option>
+            </select>
+          </label>
+          <button id="toggle">Pause</button>
+          <button id="reset">Reset</button>
+          <button id="slower">Slower</button>
+          <button id="faster">Faster</button>
+          <button id="record">Record 12s</button>
+        </div>
+      </section>
+      <section class="stage">
+        <canvas id="life" width="960" height="640"></canvas>
+        <div class="hud">
+          <span id="status">running</span>
+          <span id="pattern-label">pattern: glider gun</span>
+          <span id="generation">generation: 0</span>
+          <span id="speed">speed: 5.0 gen/s</span>
+        </div>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+  </html>
