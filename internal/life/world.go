@@ -85,28 +85,19 @@ func (w *World) ApplyPattern(pattern string) {
 	cy := w.height / 2
 
 	if pattern == "mixed" {
-		seeds := []struct {
-			name string
-			x    int
-			y    int
-		}{
-			{name: "spacefiller", x: int(float64(w.width) * 0.16), y: int(float64(w.height) * 0.18)},
-			{name: "glidergun", x: int(float64(w.width) * 0.10), y: int(float64(w.height) * 0.62)},
-			{name: "switchengine", x: int(float64(w.width) * 0.34), y: int(float64(w.height) * 0.22)},
-			{name: "pulsar", x: int(float64(w.width) * 0.52), y: int(float64(w.height) * 0.20)},
-			{name: "rpentomino", x: int(float64(w.width) * 0.74), y: int(float64(w.height) * 0.18)},
-			{name: "acorn", x: int(float64(w.width) * 0.88), y: int(float64(w.height) * 0.30)},
-			{name: "glider", x: int(float64(w.width) * 0.24), y: int(float64(w.height) * 0.46)},
-			{name: "diehard", x: int(float64(w.width) * 0.46), y: int(float64(w.height) * 0.54)},
-			{name: "lwss", x: int(float64(w.width) * 0.68), y: int(float64(w.height) * 0.58)},
-			{name: "switchengine", x: int(float64(w.width) * 0.86), y: int(float64(w.height) * 0.62)},
-			{name: "acorn", x: int(float64(w.width) * 0.22), y: int(float64(w.height) * 0.80)},
-			{name: "rpentomino", x: int(float64(w.width) * 0.50), y: int(float64(w.height) * 0.80)},
-			{name: "glider", x: int(float64(w.width) * 0.76), y: int(float64(w.height) * 0.80)},
+		patterns := []string{"acorn", "rpentomino", "glider", "lwss", "diehard", "switchengine"}
+		columns := []float64{0.10, 0.24, 0.38, 0.52, 0.66, 0.80, 0.92}
+		rows := []float64{0.12, 0.28, 0.44, 0.60, 0.76, 0.90}
+		patternIndex := 0
+		for _, row := range rows {
+			for _, col := range columns {
+				name := patterns[patternIndex%len(patterns)]
+				w.applyPatternAt(name, int(float64(w.width)*col), int(float64(w.height)*row))
+				patternIndex++
+			}
 		}
-		for _, seed := range seeds {
-			w.applyPatternAt(seed.name, seed.x, seed.y)
-		}
+		w.applyPatternAt("glidergun", int(float64(w.width)*0.06), int(float64(w.height)*0.52))
+		w.applyPatternAt("glidergun", int(float64(w.width)*0.58), int(float64(w.height)*0.08))
 		return
 	}
 

@@ -145,23 +145,27 @@ function resetWorld() {
 }
 
 function seedMixedWorld(cx, cy) {
-  const seeds = [
-    { name: "spacefiller", x: Math.floor(width * 0.16), y: Math.floor(height * 0.18) },
-    { name: "glidergun", x: Math.floor(width * 0.10), y: Math.floor(height * 0.62) },
-    { name: "switchengine", x: Math.floor(width * 0.34), y: Math.floor(height * 0.22) },
-    { name: "pulsar", x: Math.floor(width * 0.52), y: Math.floor(height * 0.20) },
-    { name: "rpentomino", x: Math.floor(width * 0.74), y: Math.floor(height * 0.18) },
-    { name: "acorn", x: Math.floor(width * 0.88), y: Math.floor(height * 0.30) },
-    { name: "glider", x: Math.floor(width * 0.24), y: Math.floor(height * 0.46) },
-    { name: "diehard", x: Math.floor(width * 0.46), y: Math.floor(height * 0.54) },
-    { name: "lwss", x: Math.floor(width * 0.68), y: Math.floor(height * 0.58) },
-    { name: "switchengine", x: Math.floor(width * 0.86), y: Math.floor(height * 0.62) },
-    { name: "acorn", x: Math.floor(width * 0.22), y: Math.floor(height * 0.80) },
-    { name: "rpentomino", x: Math.floor(width * 0.50), y: Math.floor(height * 0.80) },
-    { name: "glider", x: Math.floor(width * 0.76), y: Math.floor(height * 0.80) },
-  ];
+  const patterns = ["acorn", "rpentomino", "glider", "lwss", "diehard", "switchengine"];
+  const columns = [0.10, 0.24, 0.38, 0.52, 0.66, 0.80, 0.92];
+  const rows = [0.12, 0.28, 0.44, 0.60, 0.76, 0.90];
+  let patternIndex = 0;
 
-  for (const seed of seeds) {
+  for (const row of rows) {
+    for (const col of columns) {
+      const pattern = getPattern(patterns[patternIndex % patterns.length]);
+      const x = Math.floor(width * col);
+      const y = Math.floor(height * row);
+      for (const [dx, dy] of pattern.cells) {
+        setAlive(world, x + dx, y + dy, true);
+      }
+      patternIndex += 1;
+    }
+  }
+
+  for (const seed of [
+    { name: "glidergun", x: Math.floor(width * 0.06), y: Math.floor(height * 0.52) },
+    { name: "glidergun", x: Math.floor(width * 0.58), y: Math.floor(height * 0.08) },
+  ]) {
     const pattern = getPattern(seed.name);
     for (const [dx, dy] of pattern.cells) {
       setAlive(world, seed.x + dx, seed.y + dy, true);
