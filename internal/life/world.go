@@ -90,12 +90,19 @@ func (w *World) ApplyPattern(pattern string) {
 			x    int
 			y    int
 		}{
-			{name: "spacefiller", x: cx - 70, y: cy - 38},
-			{name: "glidergun", x: cx - 85, y: cy + 22},
-			{name: "switchengine", x: cx + 68, y: cy - 30},
-			{name: "rpentomino", x: cx + 34, y: cy + 36},
-			{name: "acorn", x: cx - 8, y: cy - 6},
-			{name: "lwss", x: cx + 82, y: cy + 28},
+			{name: "spacefiller", x: int(float64(w.width) * 0.16), y: int(float64(w.height) * 0.18)},
+			{name: "glidergun", x: int(float64(w.width) * 0.10), y: int(float64(w.height) * 0.62)},
+			{name: "switchengine", x: int(float64(w.width) * 0.34), y: int(float64(w.height) * 0.22)},
+			{name: "pulsar", x: int(float64(w.width) * 0.52), y: int(float64(w.height) * 0.20)},
+			{name: "rpentomino", x: int(float64(w.width) * 0.74), y: int(float64(w.height) * 0.18)},
+			{name: "acorn", x: int(float64(w.width) * 0.88), y: int(float64(w.height) * 0.30)},
+			{name: "glider", x: int(float64(w.width) * 0.24), y: int(float64(w.height) * 0.46)},
+			{name: "diehard", x: int(float64(w.width) * 0.46), y: int(float64(w.height) * 0.54)},
+			{name: "lwss", x: int(float64(w.width) * 0.68), y: int(float64(w.height) * 0.58)},
+			{name: "switchengine", x: int(float64(w.width) * 0.86), y: int(float64(w.height) * 0.62)},
+			{name: "acorn", x: int(float64(w.width) * 0.22), y: int(float64(w.height) * 0.80)},
+			{name: "rpentomino", x: int(float64(w.width) * 0.50), y: int(float64(w.height) * 0.80)},
+			{name: "glider", x: int(float64(w.width) * 0.76), y: int(float64(w.height) * 0.80)},
 		}
 		for _, seed := range seeds {
 			w.applyPatternAt(seed.name, seed.x, seed.y)

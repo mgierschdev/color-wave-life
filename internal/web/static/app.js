@@ -146,12 +146,19 @@ function resetWorld() {
 
 function seedMixedWorld(cx, cy) {
   const seeds = [
-    { name: "spacefiller", x: cx - 70, y: cy - 38 },
-    { name: "glidergun", x: cx - 85, y: cy + 22 },
-    { name: "switchengine", x: cx + 68, y: cy - 30 },
-    { name: "rpentomino", x: cx + 34, y: cy + 36 },
-    { name: "acorn", x: cx - 8, y: cy - 6 },
-    { name: "lwss", x: cx + 82, y: cy + 28 },
+    { name: "spacefiller", x: Math.floor(width * 0.16), y: Math.floor(height * 0.18) },
+    { name: "glidergun", x: Math.floor(width * 0.10), y: Math.floor(height * 0.62) },
+    { name: "switchengine", x: Math.floor(width * 0.34), y: Math.floor(height * 0.22) },
+    { name: "pulsar", x: Math.floor(width * 0.52), y: Math.floor(height * 0.20) },
+    { name: "rpentomino", x: Math.floor(width * 0.74), y: Math.floor(height * 0.18) },
+    { name: "acorn", x: Math.floor(width * 0.88), y: Math.floor(height * 0.30) },
+    { name: "glider", x: Math.floor(width * 0.24), y: Math.floor(height * 0.46) },
+    { name: "diehard", x: Math.floor(width * 0.46), y: Math.floor(height * 0.54) },
+    { name: "lwss", x: Math.floor(width * 0.68), y: Math.floor(height * 0.58) },
+    { name: "switchengine", x: Math.floor(width * 0.86), y: Math.floor(height * 0.62) },
+    { name: "acorn", x: Math.floor(width * 0.22), y: Math.floor(height * 0.80) },
+    { name: "rpentomino", x: Math.floor(width * 0.50), y: Math.floor(height * 0.80) },
+    { name: "glider", x: Math.floor(width * 0.76), y: Math.floor(height * 0.80) },
   ];
 
   for (const seed of seeds) {
