@@ -6,6 +6,7 @@ const slower = document.getElementById("slower");
 const faster = document.getElementById("faster");
 const record = document.getElementById("record");
 const patternSelect = document.getElementById("pattern");
+const speedInput = document.getElementById("speed-input");
 const statusNode = document.getElementById("status");
 const patternLabelNode = document.getElementById("pattern-label");
 const generationNode = document.getElementById("generation");
@@ -15,7 +16,6 @@ const width = 240;
 const height = 160;
 const cellSize = 4;
 const minSimulationFPS = 1;
-const maxSimulationFPS = 100;
 const waveSpeed = 0.012;
 const wavelength = 11;
 const saturation = 85;
@@ -33,7 +33,7 @@ let recordedChunks = [];
 let lastFrameTime = 0;
 let simulationAccumulator = 0;
 let simulationFPS = 5;
-let currentPattern = "glidergun";
+let currentPattern = "mixed";
 
 resetWorld();
 updateSpeedLabel();
@@ -57,16 +57,16 @@ patternSelect.addEventListener("change", () => {
   draw();
 });
 
+speedInput.addEventListener("change", () => {
+  setSimulationFPS(speedInput.value);
+});
+
 slower.addEventListener("click", () => {
-  simulationFPS = Math.max(minSimulationFPS, simulationFPS - 1);
-  simulationAccumulator = 0;
-  updateSpeedLabel();
+  setSimulationFPS(simulationFPS - 1);
 });
 
 faster.addEventListener("click", () => {
-  simulationFPS = Math.min(maxSimulationFPS, simulationFPS + 1);
-  simulationAccumulator = 0;
-  updateSpeedLabel();
+  setSimulationFPS(simulationFPS + 1);
 });
 
 record.addEventListener("click", () => {
@@ -120,6 +120,16 @@ function resetWorld() {
   next = createEmptyWorld();
   const cx = Math.floor(width / 2);
   const cy = Math.floor(height / 2);
+  if (currentPattern === "mixed") {
+    seedMixedWorld(cx, cy);
+    phase = 0;
+    generation = 0;
+    simulationAccumulator = 0;
+    generationNode.textContent = `generation: ${generation}`;
+    statusNode.textContent = running ? "running" : "paused";
+    patternLabelNode.textContent = "pattern: mixed expansion";
+    return;
+  }
   const pattern = getPattern(currentPattern);
   const originX = cx + pattern.originX;
   const originY = cy + pattern.originY;
@@ -134,8 +144,38 @@ function resetWorld() {
   patternLabelNode.textContent = `pattern: ${pattern.label}`;
 }
 
+function seedMixedWorld(cx, cy) {
+  const seeds = [
+    { name: "spacefiller", x: cx - 70, y: cy - 38 },
+    { name: "glidergun", x: cx - 85, y: cy + 22 },
+    { name: "switchengine", x: cx + 68, y: cy - 30 },
+    { name: "rpentomino", x: cx + 34, y: cy + 36 },
+    { name: "acorn", x: cx - 8, y: cy - 6 },
+    { name: "lwss", x: cx + 82, y: cy + 28 },
+  ];
+
+  for (const seed of seeds) {
+    const pattern = getPattern(seed.name);
+    for (const [dx, dy] of pattern.cells) {
+      setAlive(world, seed.x + dx, seed.y + dy, true);
+    }
+  }
+}
+
 function updateSpeedLabel() {
   speedNode.textContent = `speed: ${simulationFPS.toFixed(1)} gen/s`;
+  speedInput.value = String(Math.round(simulationFPS));
+}
+
+function setSimulationFPS(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    speedInput.value = String(Math.round(simulationFPS));
+    return;
+  }
+  simulationFPS = Math.max(minSimulationFPS, parsed);
+  simulationAccumulator = 0;
+  updateSpeedLabel();
 }
 
 function getPattern(name) {
@@ -149,6 +189,45 @@ function getPattern(name) {
         [-1, 1],
         [-3, 2], [-2, 2], [1, 2],
         [-3, 3],
+      ],
+    };
+  }
+  if (name === "spacefiller") {
+    return {
+      label: "spacefiller",
+      originX: -24,
+      originY: -13,
+      cells: [
+        [-4, -11], [-4, -10], [-4, -9], [0, -11], [0, -10], [0, -9],
+        [-5, -10], [-1, -10],
+        [-24, -9], [-23, -9], [-22, -9], [-21, -9],
+        [-24, -8], [-21, -8],
+        [-24, -3], [-21, -3],
+        [-18, -3],
+        [-17, -2], [-15, -2],
+        [-24, -1], [-21, -1], [-19, -1], [-18, -1],
+        [-17, -1], [-16, -1], [-15, -1], [-14, -1], [-13, -1],
+        [-21, 0], [-20, 0],
+        [-12, 0], [-11, 0],
+        [-24, 1], [-23, 1], [-22, 1], [-21, 1],
+        [-10, 1], [-9, 1], [-8, 1], [-7, 1],
+        [-18, 2], [-12, 2], [-11, 2],
+        [-5, 2], [-3, 2], [-2, 2], [0, 2],
+        [-24, 3], [-12, 3], [-8, 3], [-5, 3], [-4, 3], [-3, 3], [-1, 3],
+        [-24, 4], [-22, 4], [-20, 4], [-19, 4], [-18, 4], [-13, 4], [-7, 4],
+        [-15, 5], [-11, 5], [-10, 5], [-9, 5], [-8, 5], [-5, 5], [-3, 5],
+        [-18, 6], [-17, 6], [-15, 6], [-14, 6], [-10, 6], [-7, 6], [-5, 6], [-4, 6],
+        [-3, 6], [-2, 6], [-1, 6], [0, 6],
+        [-18, 7], [-16, 7], [-15, 7], [-14, 7], [-10, 7], [-9, 7], [-8, 7], [-5, 7],
+        [-3, 7], [-1, 7],
+        [-19, 8], [-18, 8], [-17, 8], [-15, 8], [-10, 8], [-5, 8], [-3, 8],
+        [-2, 8], [-1, 8], [0, 8],
+        [-21, 9], [-20, 9], [-19, 9], [-18, 9], [-14, 9], [-13, 9], [-12, 9],
+        [-11, 9], [-10, 9],
+        [-24, 10], [-23, 10], [-22, 10], [-21, 10],
+        [-15, 11], [-14, 11], [-13, 11],
+        [-18, 12],
+        [-24, 13], [-23, 13], [-22, 13], [-21, 13],
       ],
     };
   }

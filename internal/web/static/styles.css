@@ -80,6 +80,20 @@ select {
   font: inherit;
 }
 
+input {
+  width: 72px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  margin: 0;
+}
+
 .stage {
   background: rgba(5, 8, 16, 0.72);
   border: 1px solid var(--line);
